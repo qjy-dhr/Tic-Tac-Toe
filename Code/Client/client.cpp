@@ -27,7 +27,7 @@ void print()
 		{
 			if (j == col - 1) {
 				if (chess_client[i][j] == 'y') {
-					cout << "__\u2605_" << endl;
+					cout << "__△_" << endl;
 				}
 				else {
 					cout << "__" << chess_client[i][j] << "__" << endl;
@@ -35,7 +35,7 @@ void print()
 			}
 			else {
 				if (chess_client[i][j] == 'y') {
-					cout << "__\u2605_" << "|";;
+					cout << "__△_" << "|";
 				}
 				else {
 					cout << "__" << chess_client[i][j] << "__" << "|";
@@ -152,7 +152,7 @@ int main()
 		display();
 		print();
 		cout << "x=>代表自己" << endl;
-		cout << "★=>代表对方已经下的格子" << endl;
+		cout << "△=>代表对方已经下的格子" << endl;
 		cout << "0~8数字=>可以落子的地方" << endl;
 		cout << endl;
 		if (play.first == 0) {
@@ -164,10 +164,10 @@ int main()
 			int signal = WaitForSingleObject(hThread1, PlayTime);//设置运行60s
 			//如果超出60s，则跳过该函数
 			if (signal != WAIT_OBJECT_0)
-			{
-				cout << "超时，自动退出" << endl;
+			{				
 				TerminateProcess(hThread1, -1);
 				CloseHandle(hThread1);
+				cout << "超时，自动退出" << endl;
 				break;
 			}
 			CloseHandle(hThread1);
@@ -194,7 +194,7 @@ int main()
 			else {
 				if (judge_win() == 'x')
 				{
-					cout << "client胜利" << endl;
+					cout << "You Win!!!" << endl;
 					break;
 				}
 				else if (judge_full() == 1)
@@ -202,13 +202,15 @@ int main()
 					cout << "无人获胜" << endl;
 					break;
 				}
+				if (play.ai == 0) {
 				cout << "等待对方落子，倒计时60秒..." << endl;
+				}
 				int nNetTimeout = PlayTime;
 				setsockopt(client, SOL_SOCKET, SO_RCVTIMEO, (char*)&nNetTimeout, sizeof(int));
 				int recvresult = recv(client, recvmessage, sizeof(recvmessage), 0);
 				if (recvresult < 0)
 				{
-					cout << "对方应答超时，退出" << recvresult << endl;
+					cout << "对方应答超时，退出"  << endl;
 					break;
 				}
 				if (recvresult == SOCKET_ERROR)
@@ -238,7 +240,7 @@ int main()
 					print();
 					if (judge_win() == 'y')
 					{
-						cout << "server胜利" << endl;
+						cout << "You Lose!" << endl;
 						break;
 					}
 					else if (judge_full() == 1)
@@ -255,13 +257,15 @@ int main()
 		else {
 			while (1)
 			{
-				cout << "等待对方落子，倒计时60秒..." << endl;
+				if (play.ai == 0) {
+					cout << "等待对方落子，倒计时60秒..." << endl;
+				}
 				int nNetTimeout = PlayTime;
 				setsockopt(client, SOL_SOCKET, SO_RCVTIMEO, (char*)&nNetTimeout, sizeof(int));
 				int recvresult = recv(client, recvmessage, sizeof(recvmessage), 0);
 				if (recvresult < 0)
 				{
-					cout << "对方应答超时，退出" << recvresult << endl;
+					cout << "对方应答超时，退出" << endl;
 					break;
 				}
 				if (recvresult == SOCKET_ERROR)
@@ -291,7 +295,7 @@ int main()
 					print();
 					if (judge_win() == 'y')
 					{
-						cout << "server胜利" << endl;
+						cout << "You Lose!" << endl;
 						break;
 					}
 					else if (judge_full() == 1)
@@ -334,7 +338,7 @@ int main()
 					}
 					if (judge_win() == 'x')
 					{
-						cout << "client胜利" << endl;
+						cout << "You Win!!!" << endl;
 						break;
 					}
 					else if (judge_full() == 1)

@@ -26,7 +26,7 @@ void print()
 		{
 			if (j == col - 1) {
 				if (chess_server[i][j] == 'y') {
-					cout << "__\u2605_" << endl;
+					cout << "__△_" << endl;
 				}
 				else {
 					cout << "__" << chess_server[i][j] << "__" << endl;
@@ -34,7 +34,7 @@ void print()
 			}
 			else {
 				if (chess_server[i][j] == 'y') {
-					cout << "__\u2605_" << "|";
+					cout << "__△_" << "|";
 				}
 				else {
 					cout << "__" << chess_server[i][j] << "__" << "|";
@@ -138,7 +138,7 @@ int alpha_beta(int moveNow, int moveNext, int alpha, int beta) {
 	}
 	return beta;
 }
-void calNext() {
+void callNext() {
 	int i = 0;
 	int bestValue = 1000, x = 0, y = 0;
 	for (int i = 0; i < row; i++)
@@ -297,7 +297,7 @@ int main()
 							print();
 							if (judge_win() == 'x')
 							{
-								cout << "client胜利" << endl;
+								cout << "You Lose!" << endl;
 								break;
 							}
 							else if (judge_full() == 1)
@@ -341,7 +341,7 @@ int main()
 							}
 							if (judge_win() == 'y')
 							{
-								cout << "server胜利" << endl;
+								cout << "You Win!!!" << endl;
 								break;
 							}
 							else if (judge_full() == 1)
@@ -393,7 +393,7 @@ int main()
 						else {
 							if (judge_win() == 'y')
 							{
-								cout << "server胜利" << endl;
+								cout << "You Win!!!" << endl;
 								break;
 							}
 							else if (judge_full() == 1)
@@ -439,7 +439,7 @@ int main()
 								print();
 								if (judge_win() == 'x')
 								{
-									cout << "client胜利" << endl;
+									cout << "You Lose!" << endl;
 									break;
 								}
 								else if (judge_full() == 1)
@@ -499,7 +499,7 @@ int main()
 							print();
 							if (judge_win() == 'x')
 							{
-								cout << "client胜利" << endl;
+								cout << "AI Lose! That's impossible!" << endl;
 								break;
 							}
 							else if (judge_full() == 1)
@@ -507,7 +507,7 @@ int main()
 								cout << "无人获胜" << endl;
 								break;
 							}
-							calNext();
+							callNext();
 							print();
 							for (int i = 0; i < row; i++)
 							{
@@ -530,7 +530,7 @@ int main()
 							}
 							if (judge_win() == 'y')
 							{
-								cout << "AI胜利" << endl;
+								cout << "AI Win! That's easy!" << endl;
 								break;
 							}
 							else if (judge_full() == 1)
@@ -545,7 +545,7 @@ int main()
 					else {
 						while (1)
 						{
-							calNext();
+							callNext();
 							print();
 							for (int i = 0; i < row; i++)
 							{
@@ -569,7 +569,7 @@ int main()
 							else {
 								if (judge_win() == 'y')
 								{
-									cout << "server胜利" << endl;
+									cout << "AI Win! That's easy!" << endl;
 									break;
 								}
 								else if (judge_full() == 1)
@@ -615,7 +615,7 @@ int main()
 									print();
 									if (judge_win() == 'x')
 									{
-										cout << "client胜利" << endl;
+										cout << "AI Lose! That's impossible!" << endl;
 										break;
 									}
 									else if (judge_full() == 1)
